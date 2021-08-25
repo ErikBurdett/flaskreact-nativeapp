@@ -5,11 +5,7 @@ import Home from './components/Home';
 // import ClassHome from './components/ClassHome';
 import Constants from  'expo-constants'
 export default function App() {
-//comment for commit
-//comment for commit
-//comment for commit
 
-//comment for commit
 
 
   return (

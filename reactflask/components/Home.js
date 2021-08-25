@@ -1,13 +1,30 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {StyleSheet, View, Text, Button, FlatList} from 'react-native'
 import {Card, FAB} from 'react-native-paper'
 
-function Home(props) {
-    const data = [
-        {id: 1,title: '1 Title', body: 'First Body'},
-        {id: 2,title: '2 Title', body: 'Second Body'},
-        {id: 3,title: '3 Title', body: 'Third Body'}
-    ]
+function Home() {
+
+    const [data, setData] = useState([])
+
+    useEffect(()=>{
+        fetch('http://127.0.0.1:3000/get', {
+            method:'GET'
+        })
+        .then(resp => resp.json())
+        .then(article =>{
+            setData(article)
+        })
+        .catch(function(error){
+            console.log("error with fetch:" + error.message);
+            //throws error
+            throw error;
+        });
+    }, [])
+    // const data = [
+    //     {id: 1,title: '1 Title', body: 'First Body'},
+    //     {id: 2,title: '2 Title', body: 'Second Body'},
+    //     {id: 3,title: '3 Title', body: 'Third Body'}
+    // ]
 
     const renderData = (item) =>{
         return(
