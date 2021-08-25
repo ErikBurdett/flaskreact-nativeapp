@@ -7,7 +7,7 @@ function Home() {
     const [data, setData] = useState([])
 
     useEffect(()=>{
-        fetch('http://127.0.0.1:3000/get', {
+        fetch('http://192.168.0.4:3000/get', {
             method:'GET'
         })
         .then(resp => resp.json())
