@@ -20,11 +20,6 @@ function Home(props) {
             throw error;
         });
     }, [])
-    // const data = [
-    //     {id: 1,title: '1 Title', body: 'First Body'},
-    //     {id: 2,title: '2 Title', body: 'Second Body'},
-    //     {id: 3,title: '3 Title', body: 'Third Body'}
-    // ]
 
     const renderData = (item) =>{
         return(
