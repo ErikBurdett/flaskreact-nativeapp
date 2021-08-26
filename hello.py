@@ -3,9 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
 
+
+
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'https://flaskreact-native-test.herokuapp.com/'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -81,6 +85,6 @@ def helloworld():
     }
 
 if __name__== '__main__':
-    app.run(host = '192.168.0.4', port=3000, debug=True)
+    app.run(debug=True)
     # host = '127.0.0.1', port=3000, debug=True
     # 192.168.0.4:19000
