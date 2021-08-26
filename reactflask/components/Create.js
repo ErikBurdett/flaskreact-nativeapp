@@ -1,11 +1,29 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import {TextInput, Button} from 'react-native-paper'
 
-function Create() {
-
+function Create(props) {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
+
+    const insertData = () =>{
+        fetch('http://192.168.0.4:3000/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title:title, body:body})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            props.navigation.navigate('Home')
+        })
+        .catch(function(error){
+            console.log("error with fetch:" + error.message);
+            //throws error
+            throw error;
+        })
+    }
 
     return (
         <View>
@@ -25,18 +43,17 @@ function Create() {
             style ={{margin:15, marginTop: 0}}
             icon = "pencil"
             mode="contained"
-            onPress={()=> console.log("pressed")}
+            onPress={()=> insertData()}
             >Insert Article</Button>
         </View>
 
     )
 }
-
 const styles = StyleSheet.create({
     inputStyle: {
         marginTop:10,
     }
 })
 
-export default Create
 
+export default Create

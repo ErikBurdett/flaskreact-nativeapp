@@ -5,20 +5,27 @@ import {Card, FAB} from 'react-native-paper'
 function Home(props) {
 
     const [data, setData] = useState([])
+    const [loading, setIsLoading] = useState(true)
 
-    useEffect(()=>{
+    const loadData = () => {
         fetch('http://192.168.0.4:3000/get', {
             method:'GET'
         })
         .then(resp => resp.json())
         .then(article =>{
             setData(article)
+            setIsLoading(false)
         })
         .catch(function(error){
             console.log("error with fetch:" + error.message);
             //throws error
             throw error;
         });
+
+    }
+
+    useEffect(()=>{
+        loadData()
     }, [])
 
     const renderData = (item) =>{
@@ -37,6 +44,8 @@ function Home(props) {
             renderItem = {({item}) =>{
                 return renderData(item)
             }}
+            onRefresh = {() => loadData()}
+            refreshing = {loading}
             keyExtractor = {item => `${item.id}`}
             />
             <FAB
