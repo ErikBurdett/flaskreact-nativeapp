@@ -3,6 +3,24 @@ import {View, ScrollView, Text, StyleSheet} from 'react-native'
 import {TextInput, Button} from 'react-native-paper'
 function Details(props) {
     const data = props.route.params.data;
+
+    const deleteData = (data) =>{
+        fetch(`http://192.168.0.4:3000/delete/${data.id}/`, {
+            method:'DELETE',
+            headers:{
+                'content-type':'application/json'
+            }
+        })
+        .then(data =>{
+            props.navigation.navigate("Home")
+        })
+        .catch(function(error){
+            console.log("error with fetch:" + error.message);
+            //throws error
+            throw error;
+        });
+
+    }
     return (
         <ScrollView>
             <View style={styles.viewStyle}>
@@ -28,7 +46,7 @@ function Details(props) {
                     style ={{margin:15, marginTop: 0}}
                     icon = "delete"
                     mode="contained"
-                    onPress={()=> console.log('pressed')}
+                    onPress={()=> deleteData(data)}
                         >
                     Delete
                     </Button>
