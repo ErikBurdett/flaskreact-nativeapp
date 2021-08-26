@@ -78,7 +78,7 @@ def add_article():
 def homepage():
     return "Hello Universe. Hello, Heroku. Howdy."
 
-@app.route("/helloworld")
+@app.route("/")
 def helloworld():
     return {
         'Hello':'World'
