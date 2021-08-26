@@ -1,11 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar'
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './components/Home';
-import Create from './components/Create';
+import { StyleSheet, Text, View } from 'react-native'
+import Home from './components/Home'
+import Create from './components/Create'
+import Details from './components/Details'
+import Edit from './components/Edit'
 import Constants from  'expo-constants'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
 
@@ -18,6 +20,8 @@ function App() {
       <Stack.Navigator>
       <Stack.Screen name="Home" component={Home}/>
       <Stack.Screen name="Create" component={Create}/>
+      <Stack.Screen name="Details" component={Details}/>
+      <Stack.Screen name="Edit" component={Edit}/>
       </Stack.Navigator>
     </View>
   );
