@@ -9,8 +9,8 @@ import urllib.parse
 
 # db stuff
 # result = urlsparse("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
-urllib.parse.uses_netloc.append("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
-postgres_url = urllib.parse.urlparse(os.environ["postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa"])
+urllib.parse.uses_netloc.append("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa/schema/tables")
+postgres_url = urllib.parse.urlparse(os.environ["postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa/schema/tables"])
 
 
 conn = psycopg2.connect(
@@ -25,7 +25,7 @@ conn.autocommit = True
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['SQLALCHEMY_DATABASE_URI'] = postgress_url
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
