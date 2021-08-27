@@ -1,21 +1,38 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import datetime
 from flask_marshmallow import Marshmallow
+import psycopg2
+import urllib.parse
+
+# db stuff
+urllib.parse.uses_netloc.append("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
+postgres_url = urllib.parse.urlparse(os.environ["postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa"])
 
 
+conn = psycopg2.connect(
+  database=postgres_url.path[1:],
+  user=postgres_url.username,
+  password=postgres_url.password,
+  host=postgres_url.hostname,
+  port=postgres_url.port
+  )
+conn.autocommit = True
 
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa'
+app.config['SQLALCHEMY_DATABASE_URI'] = postgres_url
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-ma = Marshmallow(app)
+migrate = Migrate(app, db)
+# ma = Marshmallow(app)
 
 class Articles(db.Model):
+    __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     body = db.Column(db.Text())
@@ -23,13 +40,15 @@ class Articles(db.Model):
     def __init__(self, title,body):
         self.title = title
         self.body = body
+    def __repr__(self):
+        return f"<Articles {self.name}>"
 
-class ArticleSchema(ma.Schema):
-    class Meta:
-        fields = ('id', 'title', 'body', 'date' )
+# class ArticleSchema(ma.Schema):
+#     class Meta:
+#         fields = ('id', 'title', 'body', 'date' )
 
-article_schema = ArticleSchema()
-articles_schema = ArticleSchema(many=True)
+# article_schema = ArticleSchema()
+# articles_schema = ArticleSchema(many=True)
 
 @app.route("/get", methods = ['GET'])
 def get_articles():
