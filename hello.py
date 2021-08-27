@@ -37,8 +37,8 @@ migrate = Migrate(app, db)
 ma = Marshmallow(app)
 metadata = MetaData()
 
-articlestable = Table('articles', metadata, autoload=True, autoload_with=engine)
-print(repr(articlestable))
+# articlestable = Table('articles', metadata, autoload=True, autoload_with=engine)
+# print(repr(articlestable))
 
 class Articles(db.Model):
     __tablename__ = 'articles'
