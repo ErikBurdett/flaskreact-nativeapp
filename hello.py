@@ -5,7 +5,7 @@ import datetime
 from flask_marshmallow import Marshmallow
 import psycopg2
 import urllib.parse
-# import os
+import os
 
 # db stuff
 # result = urlsparse("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
