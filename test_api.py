@@ -27,7 +27,7 @@ class TestAPI(unittest.TestCase):
     "date": "2021-08-27T17:38:54.572090",
     "id": 5,
     "title": "Hello from the deployed application"
-}]
+    }]
     def test_1_get_all(self):
         resp = requests.get(self.URL)
         self.assertEqual(resp.status_code, 200)
