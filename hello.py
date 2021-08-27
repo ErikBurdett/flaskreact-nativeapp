@@ -1,37 +1,44 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData, Table
+from sqlalchemy import create_engine
 from flask_migrate import Migrate
 import datetime
 from flask_marshmallow import Marshmallow
-import psycopg2
-import urllib.parse
-import os
+# import psycopg2
+# import urllib.parse
+# import os
 
 # db stuff
 # result = urlsparse("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
-urllib.parse.uses_netloc.append("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
-postgres_url = urllib.parse.urlparse(os.environ.get("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa"))
+# urllib.parse.uses_netloc.append("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa")
+# postgres_url = urllib.parse.urlparse(os.environ.get("postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa"))
+engine = create_engine('postgres://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa')
+connection = engine.connect()
+# conn = psycopg2.connect(
+#   database=postgres_url.path[1:],
+#   user=postgres_url.username,
+#   password=postgres_url.password,
+#   host=postgres_url.hostname,
+#   port=postgres_url.port
+#   )
+# conn.autocommit = True
 
-
-conn = psycopg2.connect(
-  database=postgres_url.path[1:],
-  user=postgres_url.username,
-  password=postgres_url.password,
-  host=postgres_url.hostname,
-  port=postgres_url.port
-  )
-conn.autocommit = True
 
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['SQLALCHEMY_DATABASE_URI'] = connection
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
+metadata = MetaData()
+
+articlestable = Table('articles', metadata, autoload=True, autoload_with=engine)
+print(repr(articlestable))
 
 class Articles(db.Model):
     __tablename__ = 'articles'
