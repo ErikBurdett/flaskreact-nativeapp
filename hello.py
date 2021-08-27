@@ -25,7 +25,7 @@ conn.autocommit = True
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = postgress_url
+app.config['SQLALCHEMY_DATABASE_URI'] = conn
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
