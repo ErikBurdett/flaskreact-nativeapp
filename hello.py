@@ -31,7 +31,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-# ma = Marshmallow(app)
+ma = Marshmallow(app)
 
 class Articles(db.Model):
     __tablename__ = 'articles'
@@ -45,12 +45,12 @@ class Articles(db.Model):
     def __repr__(self):
         return f"<Articles {self.name}>"
 
-# class ArticleSchema(ma.Schema):
-#     class Meta:
-#         fields = ('id', 'title', 'body', 'date' )
+class ArticleSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'title', 'body', 'date' )
 
-# article_schema = ArticleSchema()
-# articles_schema = ArticleSchema(many=True)
+article_schema = ArticleSchema()
+articles_schema = ArticleSchema(many=True)
 
 @app.route("/get", methods = ['GET'])
 def get_articles():
