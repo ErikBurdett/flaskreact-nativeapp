@@ -3,8 +3,8 @@ import requests
 
 
 class TestAPI(unittest.TestCase):
-    URL = 'https://flaskreact-native-test.herokuapp.com/get'
-    data ={
+    URL = 'https://flaskreact-native-test.herokuapp.com/'
+    data =[{
     "body": "3030!!!",
     "date": "2021-08-27T15:41:44.032828",
     "id": 2,
@@ -27,7 +27,7 @@ class TestAPI(unittest.TestCase):
     "date": "2021-08-27T17:38:54.572090",
     "id": 5,
     "title": "Hello from the deployed application"
-    }
+    }]
 
     expected_result_test3 ={
     "body": "3030!!!",
@@ -36,9 +36,9 @@ class TestAPI(unittest.TestCase):
     "title": "Deltron"
 }
     def test_1_get_all(self):
-        resp = requests.get(self.URL)
+        resp = requests.get(self.URL + '/get')
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(len(resp.json()), 4)
+        self.assertEqual(len(resp.json()), 2)
         print("Test 1 completed")
         print(resp.json())
         if resp == self.data:
@@ -46,20 +46,20 @@ class TestAPI(unittest.TestCase):
         else:
             return print('Something is different')
     def test_2_get_all(self):
-        resp = requests.get(self.URL, json = self.data)
+        resp = requests.get(self.URL + '/get', json = self.data)
         self.assertEqual(resp.status_code, 200)
         print(self.data)
         print(resp.json())
         # self.assertDictEqual(resp.dict(), self.data)
         print("Test 2 Completed")
     def test_3_get_specific_article(self):
-        resp = requests.get(self.URL + '/2')
+        resp = requests.get(self.URL + '/get/' +'/2')
         self.assertEqual(resp.status_code, 200)
         self.assertDictEqual(resp.json(), self.expected_result_test3)
         print(resp.json())
         print("Test 3 Completed")
     def test_4_delete(self):
-        resp = requests.delete(self.URL + '/4')
+        resp = requests.delete(self.URL + '/delete/' '/2')
         self.assertEqual(resp.status_code, 200)
         print(resp.json())
         print("Test 4 Completed")
@@ -84,9 +84,9 @@ class TestAPI(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    tester = TestAPI()
-    tester.test_1_get_all()
-    tester.test_2_get_all()
-    tester.test_3_get_specific_article()
-    tester.test_4_delete()
+    # tester = TestAPI()
+    # tester.test_1_get_all()
+    # tester.test_2_get_all()
+    # tester.test_3_get_specific_article()
+    # tester.test_4_delete()
     unittest.main()
