@@ -89,11 +89,11 @@ def add_article():
 # beginning of template rendering page routes
 @app.route("/homepage")
 def homepage():
-    return render_template('home.html', all_articles = Articles.query.all())
+    return render_template('home.html', )
 
 @app.route("/articles")
 def render_articles():
-    return render_template('articles.html', )
+    return render_template('articles.html', all_articles = Articles.query.all() )
 
 @app.route("/")
 def helloworld():
