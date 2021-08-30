@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Table
 from sqlalchemy import create_engine
@@ -43,7 +43,7 @@ class ArticleSchema(ma.Schema):
 article_schema = ArticleSchema()
 articles_schema = ArticleSchema(many=True)
 
-# Routes!
+# API Routes!
 @app.route("/get", methods = ['GET'])
 def get_articles():
     all_articles = Articles.query.all()
@@ -86,10 +86,14 @@ def add_article():
     db.session.commit()
     return article_schema.jsonify(articles)
 
-
+# beginning of template rendering page routes
 @app.route("/homepage")
 def homepage():
-    return "Hello Universe. Hello, Heroku. Howdy."
+    return render_template('home.html', all_articles = Articles.query.all())
+
+@app.route("/articles")
+def render_articles():
+    return render_template('articles.html', )
 
 @app.route("/")
 def helloworld():
