@@ -93,7 +93,7 @@ def homepage():
 
 @app.route("/articles")
 def render_articles():
-    return render_template('articles.html', all_articles = Articles.query.all() )
+    return render_template('articles.html', articles = Articles.query.all() )
 
 @app.route("/")
 def helloworld():
