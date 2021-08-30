@@ -87,7 +87,7 @@ def add_article():
     return article_schema.jsonify(articles)
 
 # beginning of template rendering page routes
-@app.route("/homepage")
+@app.route("/")
 def homepage():
     return render_template('home.html', )
 
@@ -95,11 +95,15 @@ def homepage():
 def render_articles():
     return render_template('articles.html', articles = Articles.query.all() )
 
-@app.route("/")
-def helloworld():
-    return {
-        'Hello':'World'
-    }
+@app.route("/article/<string:id>")
+def render_article(id):
+    return render_template('article.html', articles = Articles.query.get(id))
+
+# @app.route("/")
+# def helloworld():
+#     return {
+#         'Hello':'World'
+#     }
 
 if __name__== '__main__':
     app.run(debug=True)
