@@ -38,7 +38,7 @@ class TestAPI(unittest.TestCase):
     def test_1_get_all(self):
         resp = requests.get(self.URL + '/get')
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(len(resp.json()), 2)
+        self.assertEqual(len(resp.json()), 8)
         print("Test 1 completed")
         print(resp.json())
         if resp == self.data:
@@ -53,16 +53,24 @@ class TestAPI(unittest.TestCase):
         # self.assertDictEqual(resp.dict(), self.data)
         print("Test 2 Completed")
     def test_3_get_specific_article(self):
-        resp = requests.get(self.URL + '/get/' +'/2')
+        resp = requests.get(self.URL + '/get/' +'/10')
         self.assertEqual(resp.status_code, 200)
-        self.assertDictEqual(resp.json(), self.expected_result_test3)
+        # self.assertDictEqual(resp.json(), self.expected_result_test3)
         print(resp.json())
         print("Test 3 Completed")
     def test_4_delete(self):
-        resp = requests.delete(self.URL + '/delete/' '/2')
+        resp = requests.delete(self.URL + '/delete/' '/14')
         self.assertEqual(resp.status_code, 200)
         print(resp.json())
         print("Test 4 Completed")
+    # def test_5_post(self):
+    #     resp = requests.post(self.URL + '/post/'+'{new_post_obj}')
+    #     new_post_obj = {
+    #         "body": "DB Test POST request",
+    #         "date": "",
+    #         "id": 10,
+    #         "title": "DB POST TEST"
+    #     }
 # returning an error 405 !=200
     # def test_5_update(self):
 
@@ -84,9 +92,4 @@ class TestAPI(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # tester = TestAPI()
-    # tester.test_1_get_all()
-    # tester.test_2_get_all()
-    # tester.test_3_get_specific_article()
-    # tester.test_4_delete()
     unittest.main()
