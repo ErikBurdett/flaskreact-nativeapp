@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Table
 from sqlalchemy import create_engine
 from flask_migrate import Migrate
+from flask_cors import CORS
 import datetime
 from flask_marshmallow import Marshmallow
 
@@ -13,6 +14,7 @@ engine = create_engine('postgresql://beobuojhegamsi:0d03035ef88099e1bd219b3772e1
 connection = engine.connect()
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa'
 
@@ -43,7 +45,7 @@ class ArticleSchema(ma.Schema):
 article_schema = ArticleSchema()
 articles_schema = ArticleSchema(many=True)
 
-# Routes!
+# API Routes!
 @app.route("/get", methods = ['GET'])
 def get_articles():
     all_articles = Articles.query.all()
@@ -86,16 +88,24 @@ def add_article():
     db.session.commit()
     return article_schema.jsonify(articles)
 
-
-@app.route("/homepage")
-def homepage():
-    return "Hello Universe. Hello, Heroku. Howdy."
-
+# beginning of template rendering page routes
 @app.route("/")
-def helloworld():
-    return {
-        'Hello':'World'
-    }
+def homepage():
+    return render_template('home.html', )
+
+@app.route("/articles")
+def render_articles():
+    return render_template('articles.html', articles = Articles.query.all() )
+
+@app.route("/article/<string:id>")
+def render_article(id):
+    return render_template('article.html', articles = Articles.query.get(id))
+
+# @app.route("/")
+# def helloworld():
+#     return {
+#         'Hello':'World'
+#     }
 
 if __name__== '__main__':
     app.run(debug=True)
