@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Table
 from sqlalchemy import create_engine
 from flask_migrate import Migrate
+from flask_cors import CORS
 import datetime
 from flask_marshmallow import Marshmallow
 
@@ -13,6 +14,7 @@ engine = create_engine('postgresql://beobuojhegamsi:0d03035ef88099e1bd219b3772e1
 connection = engine.connect()
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa'
 

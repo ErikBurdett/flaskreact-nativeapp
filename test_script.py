@@ -4,47 +4,47 @@ import requests
 
 class TestAPI(unittest.TestCase):
     URL = 'https://flaskreact-native-test.herokuapp.com/'
-    data =[{
-    "body": "3030!!!",
-    "date": "2021-08-27T15:41:44.032828",
-    "id": 2,
-    "title": "Deltron"
-    },
-    {
-    "body": "Test 4",
-    "date": "2021-08-27T17:35:58.872372",
-    "id": 4,
-    "title": "Test before deployment"
-    },
-    {
-    "body": "Howdy! Edit test\n",
-    "date": "2021-08-27T15:41:13.449348",
-    "id": 1,
-    "title": "DB deployed - 1st test - edit test"
-    },
-    {
-    "body": "Howdy! ",
-    "date": "2021-08-27T17:38:54.572090",
-    "id": 5,
-    "title": "Hello from the deployed application"
-    }]
+#     data =[{
+#     "body": "3030!!!",
+#     "date": "2021-08-27T15:41:44.032828",
+#     "id": 2,
+#     "title": "Deltron"
+#     },
+#     {
+#     "body": "Test 4",
+#     "date": "2021-08-27T17:35:58.872372",
+#     "id": 4,
+#     "title": "Test before deployment"
+#     },
+#     {
+#     "body": "Howdy! Edit test\n",
+#     "date": "2021-08-27T15:41:13.449348",
+#     "id": 1,
+#     "title": "DB deployed - 1st test - edit test"
+#     },
+#     {
+#     "body": "Howdy! ",
+#     "date": "2021-08-27T17:38:54.572090",
+#     "id": 5,
+#     "title": "Hello from the deployed application"
+#     }]
 
-    expected_result_test3 ={
-    "body": "3030!!!",
-    "date": "2021-08-27T15:41:44.032828",
-    "id": 2,
-    "title": "Deltron"
-}
+#     expected_result_test3 ={
+#     "body": "3030!!!",
+#     "date": "2021-08-27T15:41:44.032828",
+#     "id": 2,
+#     "title": "Deltron"
+# }
     def test_1_get_all(self):
         resp = requests.get(self.URL + '/get')
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(len(resp.json()), 8)
         print("Test 1 completed")
         print(resp.json())
-        if resp == self.data:
-            return print('data is correct')
-        else:
-            return print('Something is different')
+        # if resp == self.data:
+        #     return print('data is correct')
+        # else:
+        #     return print('Something is different')
     def test_2_get_all(self):
         resp = requests.get(self.URL + '/get', json = self.data)
         self.assertEqual(resp.status_code, 200)
