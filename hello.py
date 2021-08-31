@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Table
 from sqlalchemy import create_engine
 from flask_migrate import Migrate
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import datetime
 from flask_marshmallow import Marshmallow
 
