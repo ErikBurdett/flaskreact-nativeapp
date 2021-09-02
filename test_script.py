@@ -25,7 +25,7 @@ class TestAPI(unittest.TestCase):
         print("Test 2 Completed, retrieved specific article")
     def test_3_delete(self):
         # for now, this id must be re-specified every time it's called - best bet if Post is working to +1 to last id
-        resp = requests.delete(self.URL + '/delete/' '/105'  )
+        resp = requests.delete(self.URL + '/delete/' '/106'  )
         self.assertEqual(resp.status_code, 200)
         # print(resp.json())
         print("Test 3 Completed, delete succesful")
