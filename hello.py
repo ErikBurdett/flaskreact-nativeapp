@@ -9,7 +9,7 @@ from flask_marshmallow import Marshmallow
 
 
 
-# DB connections
+# DB connections & Engine Init
 engine = create_engine('postgresql://beobuojhegamsi:0d03035ef88099e1bd219b3772e17522354a9ac58068766ef6ac180fe38a83ec@ec2-52-3-130-181.compute-1.amazonaws.com:5432/d8gbvgrngr0fsa')
 connection = engine.connect()
 
@@ -97,17 +97,21 @@ def add_article():
 @app.route("/")
 @cross_origin()
 def homepage():
-    return render_template('home.html', )
+    return {
+        'Howdy!':'Hello, Universe.'
+    }
 
-@app.route("/articles")
-@cross_origin()
-def render_articles():
-    return render_template('articles.html', articles = Articles.query.all() )
 
-@app.route("/article/<string:id>")
-@cross_origin()
-def render_article(id):
-    return render_template('article.html', articles = Articles.query.get(id))
+# Examples of rendering Templates - Temps for this project have been removed, keeping for future reference. 
+# @app.route("/articles")
+# @cross_origin()
+# def render_articles():
+#     return render_template('articles.html', articles = Articles.query.all() )
+
+# @app.route("/article/<string:id>")
+# @cross_origin()
+# def render_article(id):
+#     return render_template('article.html', articles = Articles.query.get(id))
 
 # @app.route("/")
 # def helloworld():
