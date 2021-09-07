@@ -5,7 +5,6 @@ import hello
 
 # At the moment all tests are manipulating existing data in the DB - this needs to be restructured to only test the functionality without manipulating data.
 
-
 class TestAPI(unittest.TestCase):
     URL = 'https://flaskreact-native-test.herokuapp.com/'
 
@@ -52,16 +51,6 @@ class TestAPI(unittest.TestCase):
     #     print(resp.json())
     #     print("Test 1a completed, all articles expected recieved within a test environment")
     #     # print(resp.json())
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
