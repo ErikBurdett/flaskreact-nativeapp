@@ -26,4 +26,4 @@ jobs:
         pip install -r requirements.txt --upgrade pip
     - name: Test with test_script
       run: |
-        python -m test_script.py
+        python -m test_script
